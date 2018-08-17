@@ -1,5 +1,3 @@
-image: olmesm/s3-deploy
-
 variables:
   BUCKET: <YOUR_BUCKET_NAME>
   BUILD_DIR: <YOUR_BUILD_DIR>
@@ -18,11 +16,5 @@ stages:
   - deploy
 
 deploy:
+  image: olmesm/s3-deploy
   stage: deploy
-  script:
-    # Set low TTL for root files & files without hash.
-    - aws s3 sync $BUILD_DIR s3://"$BUCKET" --delete --cache-control max-age=0,no-cache,no-store,must-revalidate
-    # Set high TTL for hashed & referenced files.
-    - aws s3 cp s3://"$BUCKET"/"$HASHED_FILES" s3://"$BUCKET"/"$HASHED_FILES" --recursive --metadata-directive REPLACE --cache-control max-age=31536000,public
-    # Cache Invalidation?
-    # - aws cloudfront create-invalidation --distribution-id "$CDN_DISTRIBUTION_ID" --paths "$INVALIDATION_PATH"
