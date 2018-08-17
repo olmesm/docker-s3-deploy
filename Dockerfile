@@ -4,6 +4,6 @@ WORKDIR /usr/app
 
 RUN pip install awscli --upgrade
 
-COPY scripts scripts
+COPY scripts /usr/scripts
 
-CMD sh scripts/deploy.sh
+CMD sh /usr/scripts/deploy.sh
