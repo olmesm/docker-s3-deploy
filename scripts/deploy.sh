@@ -12,6 +12,9 @@
   # INVALIDATION_PATH: <YOUR_INVALIDATION_PATH>
   # TTL_TIME: <YOUR_TTL_TIME>
 
+# Leave no Files behind!
+aws s3 rm s3://$BUCKET --recursive
+
 # Set low TTL for root files & files without hash.
 aws s3 sync "$BUILD_DIR" s3://"$BUCKET" \
   --delete \
