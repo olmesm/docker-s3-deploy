@@ -7,8 +7,6 @@
   # BUCKET: <YOUR_BUCKET_NAME>
   # BUILD_DIR: <YOUR_BUILD_DIR>
   # HASHED_FILES: <YOUR_HASHED_FILES_DIR>
-  # CDN_DISTRIBUTION_ID: <YOUR_CDN_DISTRIBUTION_ID>
-  # INVALIDATE_CACHE: <SHOULD_INVALIDATE_CACHE?>
   # INVALIDATION_PATH: <YOUR_INVALIDATION_PATH>
   # TTL_TIME: <YOUR_TTL_TIME>
 
@@ -25,14 +23,3 @@ aws s3 cp s3://"$BUCKET"/"$HASHED_FILES" s3://"$BUCKET"/"$HASHED_FILES" \
   --recursive \
   --metadata-directive REPLACE \
   --cache-control max-age="$TTL_TIME",public
-
-
-# Cache Invalidation?
-if [ "$INVALIDATE_CACHE" = true ] ;
-then
-  echo "Invalidating Cache";
-
-  aws cloudfront create-invalidation \
-    --distribution-id "$CDN_DISTRIBUTION_ID" \
-    --paths "$INVALIDATION_PATH"
-fi

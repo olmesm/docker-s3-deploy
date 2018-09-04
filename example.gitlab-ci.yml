@@ -18,3 +18,6 @@ stages:
 deploy:
   image: olmesm/s3-deploy
   stage: deploy
+  script:
+    - sh /usr/scripts/deploy-s3.sh
+    - sh /usr/scripts/deploy-cdn.sh
