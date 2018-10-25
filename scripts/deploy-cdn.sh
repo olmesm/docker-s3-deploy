@@ -10,7 +10,7 @@
 # If cache invalidation has NOT been requested exit early
 if [ "$INVALIDATE_CACHE" = false ] ;
 then
-  echo "Skipping Cache Invalidation Check"
+  echo "Skipping Cache Invalidation"
   exit 0;
 fi
 
@@ -38,7 +38,8 @@ aws cloudfront wait invalidation-completed \
 if [ $? -eq 0 ]
 then
   echo "Cache Invalidation verification completed"
-else
-  echo "Could not complete Cache Invalidation verification" >&2
-  exit 1
+  exit 0
 fi
+
+echo "Could not complete Cache Invalidation verification" >&2
+exit 1
